@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const Voting = ({ pair }) => {
-    return (
-        <div className="voting">
-            {pair.map(entry =>
-                <button key={entry}>
-                    <h1>{entry}</h1>
-                </button>
-             )}
-        </div>
-    );
-};
+export default class Voting extends Component {
+    constructor(props) {
+        super(props);
+    }
 
-export default Voting;
+    getPair() {
+        return this.props.pair || [];
+    }
+
+    render() {
+        return (
+            <div className="voting">
+              {this.getPair().map(entry =>
+                  <button key={entry}>
+                      <h1>{entry}</h1>
+                  </button>
+               )}
+            </div>
+        );
+    }
+}
 
