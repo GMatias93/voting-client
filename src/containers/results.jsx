@@ -3,6 +3,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { connect } from 'react-redux';
 import Winner from '../components/winner';
 import Tally from '../components/tally';
+import * as actionCreators from '../action_creators';
 
 export const Results = class extends Component {
     constructor(props) {
@@ -31,10 +32,13 @@ export const Results = class extends Component {
 
 function mapStateToProps(state) {
     return {
-        pair: state.getIn(['votes', 'pair']),
-        tally: state.getIn(['votes', 'tally']),
+        pair: state.getIn(['vote', 'pair']),
+        tally: state.getIn(['vote', 'tally']),
         winner: state.get('winner')
     };
 }
 
-export const ResultsContainer = connect(mapStateToProps)(Results);
+export const ResultsContainer = connect(
+    mapStateToProps,
+    actionCreators
+)(Results);
