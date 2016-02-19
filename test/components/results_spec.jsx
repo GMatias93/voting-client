@@ -39,4 +39,17 @@ describe('Results', () => {
         expect(nextInvoked).to.equal(true);
     });
 
+    it('it should render a winner when there is one', () => {
+        const component = renderIntoDocument(
+            <Results winner={'Connect'}
+            pair={List.of('Connect', 'The Language')}
+            tally={Map()} />
+        );
+        const winner = ReactDOM.findDOMNode(component.refs.winner);
+
+        expect(winner).to.be.ok;
+        expect(winner.textContent).to.contain('Connect');
+
+    });
+
 });
