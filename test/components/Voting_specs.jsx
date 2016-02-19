@@ -1,4 +1,5 @@
 import React from 'react/addons';
+import { List } from 'immutable';
 import ReactDOM from 'react-dom';
 import Voting from '../../src/components/voting';
 import { expect } from 'chai';
@@ -65,6 +66,22 @@ describe('Voting', () => {
         expect(winner).to.be.ok;
         expect(winner.textContent).to.contain('Digital Dash');
 
+    });
+
+    it('renders as a pure component', () => {
+        const pair = List.of('Company', 'Legend');
+        const component = renderIntoDocument(
+            <Voting pair={pair} />
+        );
+        let firstButton = scryRenderedDOMComponentsWithTag(component, 'button')[0];
+        expect(firstButton.textContent).to.equal('Company');
+
+        pair[0] = 'Thank Me Later';
+        const updatedComponent = renderIntoDocument(
+            <Voting pair={pair} />
+        );
+        firstButton = scryRenderedDOMComponentsWithTag(updatedComponent, 'button')[0];
+        expect(firstButton.textContent).to.equal('Company');
     });
 
 });
