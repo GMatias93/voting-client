@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import reducer from './reducer';
 import App from './components/app';
 import { VotingContainer } from './containers/voting';
-import Results from './components/results';
+import { ResultsContainer } from './containers/results';
 
 const store = createStore(reducer);
 store.dispatch({
@@ -20,7 +20,7 @@ store.dispatch({
 });
 
 const routes = <Route component={App}>
-    <Route path="/results" component={Results} />
+    <Route path="/results" component={ResultsContainer} />
     <Route path="/" component={VotingContainer} />
     </Route>;
 
