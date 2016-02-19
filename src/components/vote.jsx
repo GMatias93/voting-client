@@ -7,7 +7,7 @@ export default class Vote extends Component {
 
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
     }
- 
+
     getPair() {
         return this.props.pair || [];
     }
