@@ -66,4 +66,67 @@ describe('reducer', () => {
         }));
     });
 
+    it('handles VOTE by setting hasVoted', () => {
+        const state = fromJS({
+            vote: {
+                pair: ['Jumpman', 'Diamonds Dancing'],
+                tally: { Jumpman: 43 }
+            }
+        });
+        const action = { type: 'VOTE', entry:'Jumpman' };
+        const nextState = reducer(state, action);
+
+        expect(nextState).to.equal(fromJS({
+            vote: {
+                pair: ['Jumpman', 'Diamonds Dancing'],
+                tally: { Jumpman: 43 }
+            },
+            hasVoted: 'Jumpman'
+        }));
+
+    });
+
+    it('does not set hasVoted for VOTE of invalid entry', () => {
+        const state = fromJS({
+            vote: {
+                pair: ['Jumpman', 'Diamonds Dancing'],
+                tally: { Jumpman: 43 }
+            }
+        });
+        const action = { type: 'VOTE', entry:'30 for 30 Freestyle' };
+        const nextState = reducer(state, action);
+
+        expect(nextState).to.equal(fromJS({
+            vote: {
+                pair: ['Jumpman', 'Diamonds Dancing'],
+                tally: { Jumpman: 43 }
+            }
+        }));
+
+    });
+
+    it('removes hasVoted on SET_STATE if pair changes', () => {
+        const state = fromJS({
+            vote: {
+                pair: ['Jumpman', 'Diamonds Dancing'],
+                tally: { Jumpman: 43 }
+            },
+            hasVoted: 'Jumpman'
+        });
+        const action = { type: 'SET_STATE',
+                         state:{
+                             vote: {
+                                 pair: ['Successful', 'Fear']
+                             }
+                         }
+                       };
+        const nextState = reducer(state, action);
+
+        expect(nextState).to.equal(fromJS({
+            vote: {
+                pair: ['Successful', 'Fear']
+            }
+        }));
+    });
+
 });
