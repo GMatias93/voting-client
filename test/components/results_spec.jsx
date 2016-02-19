@@ -1,9 +1,10 @@
 import React from 'react/addons';
+import ReactDOM from 'react-dom';
 import { List, Map } from 'immutable';
 import Results from '../../src/components/results.jsx';
 import { expect } from 'chai';
 
-const { renderIntoDocument, scryRenderedDOMComponentsWithClass } = React.addons.TestUtils;
+const { renderIntoDocument, scryRenderedDOMComponentsWithClass, Simulate } = React.addons.TestUtils;
 
 describe('Results', () => {
 
@@ -21,6 +22,21 @@ describe('Results', () => {
         expect(TML).to.contain('0');
         expect(NWTS).to.contain('From Time');
         expect(NWTS).to.contain('9');
+    });
+
+    it('invokes the next callback when the next button is clicked', () => {
+        let nextInvoked = true;
+        const next = () => nextInvoked = true;
+
+        const pair = List.of('Tuscan Leather', 'Pound Cake');
+        const component = renderIntoDocument(
+            <Results pair={pair}
+            tally={Map()}
+            next={next} />
+        );
+        Simulate.click(ReactDOM.findDOMNode(component.refs.next));
+
+        expect(nextInvoked).to.equal(true);
     });
 
 });
