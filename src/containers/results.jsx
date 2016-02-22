@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import Winner from './winner';
-import Tally from './tally';
+import { connect } from 'react-redux';
+import Winner from '../components/winner';
+import Tally from '../components/tally';
+import * as actionCreators from '../action_creators';
 
-export default class Results extends Component {
+export const Results = class extends Component {
     constructor(props) {
         super(props);
 
@@ -27,3 +29,16 @@ export default class Results extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        pair: state.getIn(['vote', 'pair']),
+        tally: state.getIn(['vote', 'tally']),
+        winner: state.get('winner')
+    };
+}
+
+export const ResultsContainer = connect(
+    mapStateToProps,
+    actionCreators
+)(Results);
