@@ -11,6 +11,8 @@ import App from './components/app';
 import { VotingContainer } from './containers/voting';
 import { ResultsContainer } from './containers/results';
 
+require('./style.css');
+
 const socket = io(`${location.protocol}//${location.hostname}:8090`);
 socket.on('state', state => {
     store.dispatch(setState(state));
