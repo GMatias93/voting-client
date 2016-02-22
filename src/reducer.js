@@ -14,11 +14,12 @@ function vote(state, entry) {
 
 function resetVote(state) {
     const hasVoted = state.get('hasVoted');
-    const currentPair = state.getIn(['votes', 'pair'], List());
-    if(hasVoted && !currentPair.get(hasVoted)) {
+    const currentPair = state.getIn(['vote', 'pair'], List());
+    if(hasVoted && !currentPair.includes(hasVoted)) {
         return state.remove('hasVoted');
+    } else {
+        return state;
     }
-    return state;
 }
 
 export default function(state = Map(), action) {
