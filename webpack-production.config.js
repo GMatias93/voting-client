@@ -7,7 +7,7 @@ module.exports = {
         './src/index.jsx'
     ],
     output: {
-        path: path.join(__dirname, 'public'),
+        path: path.join(__dirname, 'dist'),
         filename: 'bundle.js',
         publicPath: '/dist/'
     },
@@ -28,7 +28,7 @@ module.exports = {
             {
                 test: /\.jsx$/,
                 loader: 'babel',
-                include: path.join(__diname, 'src')
+                include: path.join(__dirname, 'src')
             },
             {
                 test: /\.js$/,
