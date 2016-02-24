@@ -3,7 +3,7 @@ var path = require('path');
 var fs = require('fs');
 
 var nodeModules = {};
-fs.reddirSync('node_modules')
+fs.readdirSync('node_modules')
     .filter(function(x) {
         return ['.bin'].indexOf(x) === -1;
     })
@@ -16,7 +16,7 @@ module.exports = [
         name: 'client',
         devtool: 'source-map',
         entry: [
-            '.client/src/index.jsx'
+            './client/src/index.jsx'
         ],
         output: {
             path: path.join(__dirname, 'dist'),
