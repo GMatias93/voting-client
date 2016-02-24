@@ -43,7 +43,7 @@ module.exports = [
                 {
                     test: /\.jsx$/,
                     loader: 'babel',
-                    include: path.join(__dirname, 'src')
+                    include: path.join(__dirname, 'client/src')
                 },
                 {
                     test: /\.js$/,
@@ -53,7 +53,7 @@ module.exports = [
                 {
                     test: /\.css$/,
                     loader: 'style!css!autoprefixer?browsers=last 2 versions',
-                    include: path.join(__dirname, 'src')
+                    include: path.join(__dirname, 'client/src')
                 }
             ]
         }

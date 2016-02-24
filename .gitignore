@@ -3,3 +3,4 @@ npm-debug.log
 <<<<<<< HEAD
 */**/.tern-port
 .tern-port
+dist
