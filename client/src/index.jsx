@@ -13,7 +13,7 @@ import { ResultsContainer } from './containers/results';
 
 require('./style.css');
 
-const socket = io(`https://shrouded-scrubland-50673.herokuapp.com/`);
+const socket = io(`https://stormy-citadel-54885.herokuapp.com/`);
 socket.on('state', state => {
     store.dispatch(setState(state));
 });

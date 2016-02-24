@@ -1,38 +1,54 @@
-var express = require('express');
-var app = express();
-var path = require('path');
-var webpack = require('webpack');
-var port = process.env.PORT || 3000;
+import socket from 'socket.io';
+import config from './webpack.config';
+import WebpackDevServer from 'webpack-dev-server';
+import webpack from 'webpack';
+import express from 'express';
+import path from 'path';
+const app = express();
+const port = process.env.PORT || 8300;
 
-var isDevelopment = (process.env.NODE_ENV !== 'production');
-var static_path = path.join(__dirname, '/dist');
+const isDevelopment = (process.env.NODE_ENV !== 'production');
+const static_path = path.join(__dirname, '/dist');
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
 
-var server = app.listen(port, function() {
-    var host = server.address().address;
-    console.log('Server listening at port %d', port);
+const server = app.listen(port, () => {
+    const host = server.address().address;
+    console.log(`Server listening at port ${port}`);
 });
 
 app.use(express.static(static_path))
-    .get('/', function(req, res) {
+    .get('/', (req, res) => {
         res.sendFile('index.html', {
             root: static_path
         });
     });
 
+
+export default function startServer(store) {
+    const io = socket(server);
+
+    store.subscribe(
+        () => io.emit('state', store.getState().toJS())
+    );
+
+    io.on('connection', (socket) => {
+        socket.emit('state', store.getState().toJS());
+        socket.on('action', store.dispatch.bind(store));
+    });
+
+}
+
 if (isDevelopment) {
-    var config = require('./webpack.config');
-    var WebpackDevServer = require('webpack-dev-server');
 
     new WebpackDevServer(webpack(config), {
         publicPath: config.output.publicPath,
         hot: true
-    }).listen(3000, 'localhost', function (err, result) {
+    }).listen(3000, 'localhost', (err, result) => {
         if (err) { console.log(err); }
         console.log('Listening at port 3000');
     });
