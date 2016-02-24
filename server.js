@@ -6,7 +6,6 @@ import path from 'path';
 const app = express();
 const port = process.env.PORT || 8300;
 
-const isDevelopment = (process.env.NODE_ENV !== 'production');
 const static_path = path.join(__dirname, '/dist');
 
 app.use((req, res, next) => {
@@ -23,7 +22,7 @@ const server = app.listen(port, () => {
 app.use(express.static(static_path))
     .get('/', (req, res) => {
         res.sendFile('index.html', {
-            root: static_path
+            root: './dist'
         });
     });
 
