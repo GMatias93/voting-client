@@ -19,9 +19,9 @@ module.exports = [
             './client/src/index.jsx'
         ],
         output: {
-            path: path.join(__dirname, 'dist'),
+            path: path.join(__dirname, 'client/dist'),
             filename: 'bundle.js',
-            publicPath: '/dist/'
+            publicPath: '/client/dist/'
         },
         plugins: [
             new webpack.optimize.DedupePlugin(),
@@ -65,8 +65,8 @@ module.exports = [
         ],
         target: 'node',
         output: {
-            path: path.join(__dirname, 'dist'),
-            publicPath: '/dist/',
+            path: path.join(__dirname, 'server/dist'),
+            publicPath: '/server/dist/',
             filename: 'server-bundle.js'
         },
         module: {

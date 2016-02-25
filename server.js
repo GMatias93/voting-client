@@ -6,7 +6,7 @@ import path from 'path';
 const app = express();
 const port = process.env.PORT || 8300;
 
-const static_path = path.join(__dirname, '/dist');
+const static_path = path.join(__dirname, '/client');
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -22,7 +22,7 @@ const server = app.listen(port, () => {
 app.use(express.static(static_path))
     .get('/', (req, res) => {
         res.sendFile('index.html', {
-            root: './dist'
+            root: './client'
         });
     });
 
