@@ -1,7 +1,9 @@
 import socket from 'socket.io';
 import express from 'express';
+import http from 'http';
 import path from 'path';
 const app = express();
+const server = http.createServer(app);
 const port = process.env.PORT || 8300;
 
 const static_path = path.join('.', __dirname, 'client');
@@ -19,11 +21,11 @@ app.use(express.static(static_path))
         });
     });
 
-const server = app.listen(port, () => {
-    const host = server.address().address;
-    console.log(`Server listening at port ${port}`);
-    console.log(__dirname);
-});
+//const server = app.listen(port, () => {
+    //const host = server.address().address;
+    //console.log(`Server listening at port ${port}`);
+    //console.log(__dirname);
+//});
 
 export default function startServer(store) {
     const io = socket().listen(server);
