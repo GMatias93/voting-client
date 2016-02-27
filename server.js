@@ -26,7 +26,7 @@ const server = app.listen(port, () => {
 });
 
 export default function startServer(store) {
-    const io = socket(server);
+    const io = socket().listen(server);
 
     store.subscribe(
         () => io.emit('state', store.getState().toJS())
