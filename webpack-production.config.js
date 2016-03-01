@@ -61,7 +61,7 @@ module.exports = [
     {
         name: 'server',
         entry: [
-            './server.js'
+            './server/index.js'
         ],
         target: 'node',
         output: {
