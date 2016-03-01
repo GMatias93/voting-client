@@ -1,7 +1,6 @@
 import { List, Map } from 'immutable';
 
 export function setEntries(state, entries) {
-    console.log(`this is entries in core.js line 4: ${entries}`);
   // const immutableEntries = fromJS(entries, (key, value) => {
   //   return value.toList();
   // });
