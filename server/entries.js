@@ -1,4 +1,4 @@
-[
+export const entries = [
   "Hotline Bling",
   "Pound Cake",
   "Take Care",
@@ -14,4 +14,4 @@
   "Hold On We're Going Home",
   "Shot For Me",
   "6 God"
-]
+];
