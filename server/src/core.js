@@ -1,62 +1,63 @@
 import {
-    List,
-    Map
+  List,
+  Map
 } from 'immutable';
 
 export function setEntries(state, entries) {
-    // const immutableEntries = fromJS(entries, (key, value) => {
-    //   return value.toList();
-    // });
-    // return state.set('entries', immutableEntries);
+  // const immutableEntries = fromJS(entries, (key, value) => {
+  //   return value.toList();
+  // });
+  // return state.set('entries', immutableEntries);
 
-    return state.set('entries', List(entries));
+  return state.set('entries', List(entries));
 }
 
 function getWinners(vote) {
-    if (!vote) {
-        return [];
-    }
+  if (!vote) {
+    return [];
+  }
 
-    const [a, b] = vote.get('pair');
-    const aVote = vote.getIn(['tally', a], 0);
-    const bVote = vote.getIn(['tally', b], 0);
+  const [a, b] = vote.get('pair');
+  const aVote = vote.getIn(['tally', a], 0);
+  const bVote = vote.getIn(['tally', b], 0);
 
-    if (aVote > bVote) {
-		    return [a];
-    } else if (bVote > aVote) {
-        return [b];
-    } else {
-        return [a, b];
-    }
+  if (aVote > bVote) {
+    return [a];
+  } else if (bVote > aVote) {
+    return [b];
+  } else {
+    return [a, b];
+  }
 }
 
 export function next(state) {
-    const entries = state.get('entries')
-        .concat(getWinners(state.get('vote')));
+  const entries = state.get('entries')
+    .concat(getWinners(state.get('vote')));
 
-    if (entries.size === 1) {
-        return state.remove('vote')
-            .remove('entries')
-            .set('winner', entries.first());
-    } else {
-        return state.merge({
-            vote: Map({
-                pair: entries.take(2)
-            }),
-            entries: entries.skip(2)
-        });
-    }
+  if (entries.size === 1) {
+    return state.remove('vote')
+      .remove('entries')
+      .set('winner', entries.first());
+  } else {
+    return state.merge({
+      vote: Map({
+				round: state.getIn(['vote', 'round'], 0) + 1,
+        pair: entries.take(2)
+      }),
+      entries: entries.skip(2)
+    });
+  }
 }
 
 export function vote(voteState, entry) {
-    if (voteState.get('pair').includes(entry)) {
-        return voteState.updateIn(
-            ['tally', entry],
-            0,
-            tally => tally + 1
-        );
-    }
-    return voteState;
+  if (voteState.get('pair').includes(entry)) {
+    return voteState.updateIn(
+      ['tally', entry],
+      0,
+      tally => tally + 1
+    );
+  }
+  return voteState;
 }
 
 export const INITIAL_STATE = Map();
