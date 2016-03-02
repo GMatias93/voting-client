@@ -10,10 +10,10 @@ import reducer from '../src/reducer';
 
 describe('reducer', () => {
 
-	it('handles GET_CLIENT_ID', () => {
+	it('handles SET_CLIENT_ID', () => {
 		const initialState = Map({});
 		const action = {
-			type: 'GET_CLIENT_ID',
+			type: 'SET_CLIENT_ID',
 			clientId: '1234'
 		};
 		const nextState = reducer(initialState, action);

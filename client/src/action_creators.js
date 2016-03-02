@@ -1,6 +1,6 @@
-export function getClientId(clientId) {
+export function setClientId(clientId) {
   return {
-    type: 'GET_CLIENT_ID',
+    type: 'SET_CLIENT_ID',
 		clientId
   };
 }
