@@ -130,17 +130,20 @@ describe('Application logic', () => {
 
     it('creates a tally for the voted entry', () => {
       const state = Map({
-				round: 1,
+        round: 1,
         pair: List.of('Trainspotting', '28 Days Later')
 
       });
-      const nextState = vote(state, 'Trainspotting');
+      const nextState = vote(state, 'Trainspotting', 'voter1');
 
       expect(nextState).to.equal(Map({
         round: 1,
         pair: List.of('Trainspotting', '28 Days Later'),
         tally: Map({
           Trainspotting: 1
+        }),
+        votes: Map({
+          voter1: 'Trainspotting'
         })
 
       }));
@@ -149,40 +152,75 @@ describe('Application logic', () => {
 
     it('adds to existing tally for the voted entry', () => {
       const state = Map({
-				round: 1,
+        round: 1,
         pair: List.of('Trainspotting', '28 Days Later'),
         tally: Map({
           Trainspotting: 3,
           '28 Days Later': 2
-        })
+        }),
+				votes: Map()
 
       });
-      const nextState = vote(state, 'Trainspotting');
+      const nextState = vote(state, 'Trainspotting', 'voter1');
 
       expect(nextState).to.equal(Map({
-				round: 1,
+        round: 1,
         pair: List.of('Trainspotting', '28 Days Later'),
         tally: Map({
           Trainspotting: 4,
           '28 Days Later': 2
+        }),
+        votes: Map({
+          voter1: 'Trainspotting'
         })
 
       }));
 
     });
+
+    it('nullifies previous vote for the same voter', () => {
+      const state = Map({
+        round: 1,
+        pair: List.of('Trainspotting', '28 Days Later'),
+        tally: Map({
+          Trainspotting: 3,
+          '28 Days Later': 2
+        }),
+        votes: Map({
+          voter1: 'Trainspotting'
+        })
+
+      });
+      const nextState = vote(state, '28 Days Later', 'voter1');
+
+      expect(nextState).to.equal(Map({
+        round: 1,
+        pair: List.of('Trainspotting', '28 Days Later'),
+        tally: Map({
+          Trainspotting: 2,
+          '28 Days Later': 3
+        }),
+        votes: Map({
+          voter1: '28 Days Later'
+        })
+
+      }));
+
+    });
+
     it('prevents user from voting on entries not included in current pair', () => {
       const state = Map({
-				round: 1,
+        round: 1,
         pair: List.of('Trainspotting', '28 Days Later'),
         tally: Map({
           Trainspotting: 3,
           '28 Days Later': 43
         })
       });
-      const nextState = vote(state, 'Take Care');
+      const nextState = vote(state, 'Take Care', 'voter1');
 
       expect(nextState).to.equal(Map({
-				round: 1,
+        round: 1,
         pair: List.of('Trainspotting', '28 Days Later'),
         tally: Map({
           Trainspotting: 3,

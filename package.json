@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register --require ./client/test/test_helper.js 'client/test/**/*.@(js|jsx)'",
+    "test": "mocha --compilers js:babel-core/register --require ./server/test/test_helper.js 'server/test/**/*.@(js|jsx)'",
     "test:watch": "npm run test -- --watch",
     "postinstall": "webpack --config ./webpack-production.config.js --progress --colors",
     "start": "node server/dist/server-bundle.js"
@@ -46,6 +46,7 @@
     "express": "^4.13.4",
     "immutable": "^3.7.6",
     "json-loader": "^0.5.4",
+    "object-assign": "^4.0.1",
     "react": "^0.14.6",
     "react-addons-pure-render-mixin": "^0.14.7",
     "react-dom": "^0.14.6",
@@ -55,6 +56,7 @@
     "socket.io": "^1.4.5",
     "socket.io-client": "^1.4.5",
     "style-loader": "^0.13.0",
+    "uuid": "^2.0.1",
     "webpack": "^1.12.11"
   }
 }
