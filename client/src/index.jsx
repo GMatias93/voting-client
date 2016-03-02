@@ -5,15 +5,15 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import io from 'socket.io-client';
 import reducer from './reducer';
-import { setState } from './action_creators';
+import { setClientId, setState } from './action_creators';
 import remoteActionMiddleware from './remote_action_middleware';
+import getClientId from './client_id';
 import App from './components/app';
 import { VotingContainer } from './containers/voting';
 import { ResultsContainer } from './containers/results';
 
 require('./style.css');
 
-//const socket = io(`https://stormy-citadel-54885.herokuapp.com/`);
 const socket = io();
 socket.on('state', state => {
     store.dispatch(setState(state));
@@ -23,6 +23,8 @@ const createStoreWithMiddleware = applyMiddleware(
     remoteActionMiddleware(socket)
 )(createStore);
 const store = createStoreWithMiddleware(reducer);
+
+store.dispatch(setClientId(getClientId()));
 
 const routes = <Route component={App}>
     <Route path="/results" component={ResultsContainer} />
