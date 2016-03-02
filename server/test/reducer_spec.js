@@ -52,7 +52,8 @@ describe('reducer', () => {
     });
     const action = {
       type: 'VOTE',
-      entry: 'Trainspotting'
+      entry: 'Trainspotting',
+			clientId: 'voter1'
     };
     const nextState = reducer(initialState, action);
 
@@ -62,7 +63,10 @@ describe('reducer', () => {
         pair: ['Trainspotting', '28 Days Later'],
         tally: {
           Trainspotting: 1
-        }
+				},
+				votes: {
+					voter1: 'Trainspotting'
+				}
       },
       entries: []
     }));
@@ -90,13 +94,16 @@ describe('reducer', () => {
       type: 'NEXT'
     }, {
       type: 'VOTE',
-      entry: 'Trainspotting'
+      entry: 'Trainspotting',
+			clientId: 'voter1'
     }, {
       type: 'VOTE',
-      entry: '28 Days Later'
+      entry: '28 Days Later',
+			clientId: 'voter2'
     }, {
       type: 'VOTE',
-      entry: 'Trainspotting'
+      entry: 'Trainspotting',
+			clientId: 'voter3'
     }, {
       type: 'NEXT'
     }, ];
