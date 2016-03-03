@@ -21,14 +21,6 @@ export function restart() {
 	};
 }
 
-export function setConnectionState(state, connected) {
-	return {
-		type: 'SET_CONNECTION_STATE',
-		state,
-		connected
-	};
-}
-
 export function vote(entry) {
   return {
     meta: {
