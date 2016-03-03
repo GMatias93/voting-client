@@ -26,7 +26,7 @@ export const ConnectionState = class extends Component {
 
 	render() {
 		return (
-			<div className="connectionState"
+			<div className="connectedState"
 					 style={{display: this.isVisible() ? 'block' : 'none'}}>
 				{this.getMessage()}
 			</div>
