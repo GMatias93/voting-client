@@ -32,11 +32,12 @@ export const Results = class extends Component {
       }
       /> < div className = "management" >
       < button ref = "restart"
+				className="button"
       onClick = {
         this.props.restart
       } >
       Restart < /button> < button ref = "next"
-      className = "next"
+      className = "button"
       onClick = {
         this.props.next
       } >
