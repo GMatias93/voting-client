@@ -1,7 +1,7 @@
 export function setClientId(clientId) {
   return {
     type: 'SET_CLIENT_ID',
-		clientId
+    clientId
   };
 }
 
@@ -10,6 +10,15 @@ export function setState(state) {
     type: 'SET_STATE',
     state
   };
+}
+
+export function restart() {
+	return {
+		meta: {
+			remote: true
+		},
+		type: 'RESTART'
+	};
 }
 
 export function vote(entry) {

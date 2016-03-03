@@ -8,7 +8,8 @@ import {
 import {
   setEntries,
   next,
-  vote
+  vote,
+  restart
 } from '../src/core';
 
 describe('Application logic', () => {
@@ -20,7 +21,8 @@ describe('Application logic', () => {
       const nextState = setEntries(state, entries);
 
       expect(nextState).to.equal(Map({
-        entries: List.of('Trainspotting', '28 Days Later')
+        entries: List.of('Trainspotting', '28 Days Later'),
+        initialEntries: List.of('Trainspotting', '28 Days Later')
       }));
 
     });
@@ -31,12 +33,39 @@ describe('Application logic', () => {
       const nextState = setEntries(state, entries);
 
       expect(nextState).to.equal(Map({
-        entries: List.of('Trainspotting', '28 Days Later')
+        entries: List.of('Trainspotting', '28 Days Later'),
+        initialEntries: List.of('Trainspotting', '28 Days Later')
       }));
 
     });
 
   });
+
+	describe('restart', () => {
+
+		it('returns to the initialEntries and takes the first two entries under vote', () => {
+			const state = Map({
+				vote: Map({
+					round: 1,
+					pair: List.of('Waves', 'Pt.2')
+				}),
+				entries: List(),
+				initialEntries: List.of('Waves', 'Ultralight Beam', 'Pt.2')
+			});
+			const nextState = restart(state);
+
+			expect(nextState).to.equal(Map({
+				vote: Map({
+					round: 2,
+					pair: List.of('Waves', 'Ultralight Beam')
+				}),
+				entries: List.of('Pt.2'),
+				initialEntries: List.of('Waves', 'Ultralight Beam', 'Pt.2')
+			}));
+
+		});
+
+	});
 
   describe('next', () => {
 
@@ -158,7 +187,7 @@ describe('Application logic', () => {
           Trainspotting: 3,
           '28 Days Later': 2
         }),
-				votes: Map()
+        votes: Map()
 
       });
       const nextState = vote(state, 'Trainspotting', 'voter1');
