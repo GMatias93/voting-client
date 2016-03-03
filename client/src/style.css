@@ -111,7 +111,7 @@ body {
    background-color: black;
    color: #aaa;
  }
- .results .management .next {
+ .results .management .button {
    flex: 1;
  }
  
