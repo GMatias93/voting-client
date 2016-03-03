@@ -12,11 +12,9 @@ export default class App extends Component {
   }
 
   render() {
-			return (
-					<div>
-						<ConnectionStateContainer />
-						{this.props.children}
-					</div>
+    return ( < div >
+      < ConnectionStateContainer / >
+      this.props.children < /div>
     );
   }
 }

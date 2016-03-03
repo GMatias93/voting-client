@@ -37,8 +37,7 @@ describe('ConnectionState', () => {
             const component = renderIntoDocument( < ConnectionState connected = {
                 false
               }
-								state = "Fail"
-								/>);
+              state = "Fail" / > );
             const div = findRenderedDOMComponentWithTag(component, 'div');
 
             expect(div.getDOMNode().textContent).to.contain('Fail');
