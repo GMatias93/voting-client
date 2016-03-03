@@ -23,24 +23,23 @@ export const Results = class extends Component {
       winner = {
         this.props.winner
       }
-      /> : < div className = "results" >
-      < Tally pair = {
+      /> : < div className = "results" > < Tally pair = {
         this.props.pair
       }
       tally = {
         this.props.tally
       }
-      /> < div className = "management" >
-      < button ref = "restart"
+      /> < div className = "management" > < button ref = "restart"
+      className = "button"
       onClick = {
         this.props.restart
       } >
       Restart < /button> < button ref = "next"
-      className = "next"
+      className = "button"
       onClick = {
         this.props.next
       } >
-      Next < /button> < /div> < /div>
+      Next < /button> < /div > < /div>
     );
   }
 }
