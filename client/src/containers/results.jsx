@@ -8,7 +8,7 @@ import {
 import Winner from '../components/winner';
 import Tally from '../components/tally';
 import * as actionCreators from '../action_creators';
-
+//
 export const Results = class extends Component {
   constructor(props) {
     super(props);
